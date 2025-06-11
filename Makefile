@@ -34,6 +34,7 @@ init: clean ## initialize a development environment (to be run in virtualenv)
 	git add "*" ".*"
 	uv run pre-commit run --all-files || true
 	git add "*" ".*"
+	git commit -m 'chore: initial commit'
 
 mypy: ## run mypy
 	uv run mypy src/

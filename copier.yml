@@ -31,4 +31,5 @@ github_user:
 
 anaconda_user:
   type: str
-  help: "dharpa"
+  help: "Your anaconda username."
+  default: "dharpa"
