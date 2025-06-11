@@ -1,0 +1,34 @@
+full_name:
+  type: str
+  help: "Your full name."
+  default: Markus Binsteiner
+
+email:
+  type: str
+  help: "Your email address."
+  default: markus@frkl.dev
+
+project_name:
+  type: str
+  help: "The name of the plugin."
+  default: "my kiara plugin"
+
+project_slug:
+  type: str
+  help: "The project slug for the plugin."
+  default: "{{ project_name|lower|replace(' ', '_')|replace('-', '_')|replace('.', '_') }}"
+  when: false
+
+project_short_description:
+  type: str
+  help: "A short description of the plugin."
+  default: "A kiara plugin to ..."
+
+github_user:
+  type: str
+  help: "Your github username."
+  default: "DHARPA-Project"
+
+anaconda_user:
+  type: str
+  help: "dharpa"
