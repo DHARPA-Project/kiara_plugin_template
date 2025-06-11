@@ -83,7 +83,7 @@ source = "vcs"
 fallback-version = "0.0.0"
 
 [tool.hatch.build.hooks.vcs]
-version-file = "src/kiara_plugin/my_kiara_plugin/version.txt"
+version-file = "src/kiara_plugin/{{ project_slug }}/version.txt"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/kiara_plugin"]
