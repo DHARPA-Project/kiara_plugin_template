@@ -45,6 +45,8 @@ ruff:
 test: ## run tests quickly with the default Python
 	uv run py.test tests
 
+doc:
+	uv run pdoc kiara_plugin.{{ project_slug }}
 
 check: ruff mypy test ## run dev-related checks
 
