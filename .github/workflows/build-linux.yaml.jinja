@@ -25,14 +25,9 @@ jobs:
         with:
           version: "0.5.9"
           python-version: {% raw %}"${{ matrix.python-version }}"{% endraw %}
-          enable-cache: true
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: "Set up Python"
-        uses: actions/setup-python@v5
-        with:
-          python-version: {% raw %}"${{ matrix.python-version }}"{% endraw %}
       - name: Create lockfile
         run: uv lock
       - name: Install the project
