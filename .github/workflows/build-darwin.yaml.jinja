@@ -11,22 +11,22 @@ jobs:
     runs-on: macos-14
     strategy:
       matrix:
-        python_version: ["3.9", "3.10", "3.11", "3.12"]
+        python_version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
     steps:
-      - name: "Set up Python {% raw %}${{ matrix.python_version }}{% endraw %}"
-        uses: actions/setup-python@v5
-        with:
-          python-version: "{% raw %}${{ matrix.python_version }}{% endraw %}"
-      - name: pip cache
-        id: pip-cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/pip
-          key: {% raw %}${{ runner.os }}-pip-${{ matrix.python_version }}-macos-14{% endraw %}
       - uses: actions/checkout@v4
-      - name: install kiara_plugin.{{ project_slug }}
-        run: pip install -U .[dev_testing]
-      - name: display installed kiara and module package versions
-        run: pip list | grep kiara
+        with:
+          fetch-depth: 0
+      - name: install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          version: "0.5.9"
+          use-cache: true
+      - name: install Python
+        run: uv python install {% raw %}${{ matrix.python_version }}{% endraw %}
+      - name: create lockfile
+        if: hashFiles('uv.lock') == ''
+        run: uv lock --python {% raw %}${{ matrix.python_version }}{% endraw %}
+      - name: install the project
+        run: uv sync --locked --dev --python {% raw %}${{ matrix.python_version }}{% endraw %}
       - name: Test with pytest
         run: make test
