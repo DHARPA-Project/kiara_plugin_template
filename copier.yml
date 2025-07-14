@@ -1,0 +1,135 @@
+full_name:
+  type: str
+  help: "Your full name."
+  validator: >-
+    {% if not full_name %}No name provided{% endif %}
+
+email:
+  type: str
+  help: "Your email address."
+  validator: >-
+    {% if not email %}
+    Email is required
+    {% elif not (email | regex_search('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$')) %}
+    Please provide a valid email address
+    {% endif %}
+  
+
+project_name:
+  type: str
+  help: "The name of the plugin."
+
+project_slug:
+  type: str
+  help: "The project slug for the plugin."
+  default: "{{ project_name|lower|replace(' ', '_')|replace('-', '_')|replace('.', '_') }}"
+  when: false
+
+full_project_slug:
+  type: str
+  help: "The full project slug (including 'kiara_plugin.')."
+  default: "kiara_plugin.{{ project_slug }}"
+  when: false
+
+
+project_short_description:
+  type: str
+  help: "A short description of the plugin."
+  validator: >-
+    {% if not project_short_description %}
+    Please provide a short description for your plugin
+    {% endif %}
+
+github_user:
+  type: str
+  help: "Your github username or organization."
+  validator: >-
+    {% if not github_user %}
+    Please provide your github username
+    {% endif %}
+
+anaconda_user:
+  type: str
+  help: "Your anaconda username or organization (optional)."
+
+_exclude:
+  - "copier.yaml"
+  - "copier.yml"
+  - "~*"
+  - "*py[co]"
+  - "__pycache__"
+  - ".git"
+  - ".DS_Store"
+  - ".svn"
+  - "template_docs"
+  - "{% if _copier_operation == 'update' -%}TODO.md{% endif %}"
+
+
+_message_before_copy: |
+  
+  You are about to create a new `kiara` plugin.
+  
+  You'll be asked a series of questions; the answers will be used to prepare
+  a basic, pre-configured Python project.
+  
+  For more information, visit:
+  
+  https://github.com/DHARPA-Project/kiara_plugin_template
+
+_message_after_copy: |
+  
+  Your `kiara` plugin '{{ full_project_slug }}' has been created successfully.
+  
+  Check out the documentation how to use the features included in this template here:
+  
+  https://github.com/DHARPA-Project/kiara_plugin_template
+  
+  The next steps are:
+  
+  1. change directory to the project root
+  
+    cd {{ _copier_conf.dst_path }}
+  
+  2. create a new repository in your Github account ({{ github_user }}) with the name:
+  
+    {{ full_project_slug }}
+  
+  3. add the Github repository as remote:
+  
+    git remote add origin git@github.com:{{ github_user }}/{{ full_project_slug }}.git
+    
+    # or:
+  
+    git remote add origin https://github.com/{{ github_user }}/{{ full_project_slug }}.git
+  
+  4. push the initial version:
+  
+    git push --set-upstream origin develop
+  
+    Now visit the Github Actions tab in your new repo and check that the pre-configured actions all run without error:
+  
+    https://github.com/{{ github_user }}/{{ full_project_slug }}/actions
+  
+  5. check the `TODO.md` file in the project folder for details on how to publish your project to PyPI and Anaconda:
+  
+    https://github.com/{{ github_user }}/{{ full_project_slug }}/blob/develop/TODO.md
+  
+  6. start writing modules: https://docs.dharpa.org/customisation/creating-modules
+
+_tasks:
+  - command: "git init &>> .init.log"
+    when: "{{ _copier_operation == 'copy' }}"
+  - command: "git checkout -b develop &>> .init.log || true"
+    when: "{{ _copier_operation == 'copy' }}"
+  - command: "uv run pre-commit install &>> .init.log"
+    when: "{{ _copier_operation == 'copy' }}"
+  - command: "uv run pre-commit install --hook-type commit-msg &>> .init.log"
+    when: "{{ _copier_operation == 'copy' }}"
+  - command: 'git add "*" ".*" &>> .init.log'
+    when: "{{ _copier_operation == 'copy' }}"
+  - command: "uv run pre-commit run --all-files &>> .init.log || true"
+    when: "{{ _copier_operation == 'copy' }}"
+  - command: 'git add "*" ".*" &>> .init.log'
+    when: "{{ _copier_operation == 'copy' }}"
+  - command: "git commit -m 'chore: initial commit' &>> .init.log"
+    when: "{{ _copier_operation == 'copy' }}"

@@ -1,0 +1,39 @@
+# Tasks for the '{{ project_name }}' kiara plugin
+
+This file contains open (and completed) tasks for this project
+
+### Todo
+
+- [ ] create [trusted publisher](https://docs.pypi.org/trusted-publishers/) on https://pypi.org/manage/account/publishing/
+  - settings to use:
+    - `PyPI Project Name`: `{{ full_project_slug }}`
+    - `Owner`: `{{ github_user }}`
+    - `Repository name`: `{{ full_project_slug }}`
+    - `Workflow name`: `build-linux.yaml`
+    - `Environment name`: [leave empty]
+{% if anaconda_user %}- [ ] configure conda package publishing
+    - [ ] create an account on https://anaconda.org (if necessary)
+    - [ ] create API token to allow Github actions to push to anaconda: https://anaconda.org/{{ anaconda_user }}/settings/access
+      - settings to use:
+        - `Token Name`: choose anything, maybe `{{ full_project_slug }} Github Action`
+        - `Strength`: Strong
+        - `Scopes`:
+          - `Allow write access to the API site`
+        - `Expiration date`: choose whatever you deem sensible
+    - [ ] create new repository secret at: https://github.com/{{ github_user }}/{{ full_project_slug }}/settings/secrets/actions
+        - `Name`: `ANACONDA_PUSH_TOKEN`
+        - `Secret`: the token you created above
+{% endif %}
+
+### In Progress
+
+- [ ] create remote git repository on https://github.com/new:
+  - settings to use:
+    - `Owner`: `{{ github_user }}`
+    - `Repository name`: `{{ full_project_slug }}`
+    - `Description`: `{{ project_short_description }}`
+
+### Done
+
+- [x] create project directory structure
+- [x] create local git repository
