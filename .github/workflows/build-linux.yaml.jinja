@@ -151,7 +151,7 @@ jobs:
         with:
           enable-cache: true
       - name: build conda package
-        run: uvx --from kiara --with git+https://github.com/DHARPA-project/kiara_plugin.dev@develop kiara build conda pkg --channel dharpa --channel conda-forge --patch-data ci/conda/conda-pkg-patch.yaml --output-folder build-dir .
+        run: uvx --from kiara --with kiara_plugin.dev kiara build conda pkg --channel dharpa --channel conda-forge --patch-data ci/conda/conda-pkg-patch.yaml --output-folder build-dir .
       - name: upload artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -188,7 +188,7 @@ jobs:
           name: conda-pkgs
           path: build-dir/
       - name: release conda package
-        run: uvx --from kiara --with git+https://github.com/DHARPA-project/kiara_plugin.dev@develop kiara build conda publish --user {{ anaconda_user }} --channel main --token {% raw %}"${{ secrets.ANACONDA_PUSH_TOKEN }}" build-dir{% endraw %}
+        run: uvx --from kiara --with kiara_plugin.dev kiara build conda publish --user {{ anaconda_user }} --channel main --token {% raw %}"${{ secrets.ANACONDA_PUSH_TOKEN }}" build-dir{% endraw %}
 
 {% endif %}
   merge_tag_to_main:
