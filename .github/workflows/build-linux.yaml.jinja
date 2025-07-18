@@ -100,13 +100,13 @@ jobs:
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: install uv
         uses: astral-sh/setup-uv@v6
         with:
           enable-cache: true
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - name: Set up git author
         run: |
           remote_repo="https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
@@ -135,13 +135,13 @@ jobs:
       - build_conda_package
       - build_python_package
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: install uv
         uses: astral-sh/setup-uv@v6
         with:
           enable-cache: true
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - name: Set up git author
         run: |
            remote_repo="https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"

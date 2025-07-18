@@ -4,6 +4,18 @@ This file contains open (and completed) tasks for this project
 
 ### Todo
 
+- [ ] enable Github Pages on your repository
+  - wait for the first 'build latest docs' action to finish: https://github.com/{{ github_user }}/{{ full_project_slug }}/actions
+  - go to: https://github.com/{{ github_user }}/{{ full_project_slug }}/settings/pages
+  - go to the 'Pages' sub-section
+  - choose the `gh-pages` branch
+  - leeve the `/root` path setting
+  - click 'Save'
+  - wait for the `pages build and deployment' action to finish (again, under the 'Actions' tab)
+  - go to: https://{{ github_user }}.github.io/{{ full_project_slug }}/latest
+  - check that the documentation is there
+  - the root-level documentation page will not work yet, but will be fixed after you release the first version of your plugin:
+    - https://{{ github_user }}.github.io/{{ full_project_slug }}
 - [ ] create [trusted publisher](https://docs.pypi.org/trusted-publishers/) on https://pypi.org/manage/account/publishing/
   - settings to use:
     - `PyPI Project Name`: `{{ full_project_slug }}`
