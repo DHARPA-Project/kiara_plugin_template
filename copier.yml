@@ -59,7 +59,7 @@ _exclude:
   - "*py[co]"
   - "__pycache__"
   - ".git"
-  - ".venv"
+  - ".venv/*"
   - ".DS_Store"
   - ".svn"
   - "template_docs"
