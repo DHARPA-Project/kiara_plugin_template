@@ -6,7 +6,6 @@ from kiara.api import KiaraModule, KiaraModuleConfig, ValueMap, ValueMapSchema
 
 
 class ExampleModuleConfig(KiaraModuleConfig):
-
     separator: str = Field(
         description="The seperator between the two strings.", default=" - "
     )
@@ -41,7 +40,6 @@ class ExampleModule(KiaraModule):
     def create_inputs_schema(
         self,
     ) -> ValueMapSchema:
-
         inputs = {
             "text_1": {"type": "string", "doc": "The first text."},
             "text_2": {"type": "string", "doc": "The second text."},
@@ -52,7 +50,6 @@ class ExampleModule(KiaraModule):
     def create_outputs_schema(
         self,
     ) -> ValueMapSchema:
-
         outputs = {
             "text": {
                 "type": "string",
@@ -62,7 +59,6 @@ class ExampleModule(KiaraModule):
         return outputs
 
     def process(self, inputs: ValueMap, outputs: ValueMap) -> None:
-
         separator = self.get_config_value("separator")
 
         text_1 = inputs.get_value_data("text_1")

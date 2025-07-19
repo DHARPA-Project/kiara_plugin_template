@@ -77,7 +77,6 @@ def get_version() -> str:
         dist_name = __name__
         __version__ = version(dist_name)
     except PackageNotFoundError:
-
         try:
             version_file = os.path.join(os.path.dirname(__file__), "version.txt")
 
