@@ -35,7 +35,14 @@ This file contains open (and completed) tasks for this project
     - [ ] create new repository secret at: https://github.com/{{ github_user }}/{{ full_project_slug }}/settings/secrets/actions
         - `Name`: `ANACONDA_PUSH_TOKEN`
         - `Secret`: the token you created above
-{% endif %}
+{% endif %}- [ ] delete example module and job:
+  - once you have confirmed it works, delete the `ExampleModule` that comes with this template, along with everything related:
+    - `src/kiara_plugin/{{ project_slug }}/modules/__init__.py`:
+        - the `ExampleModuleConfig` class
+        - the `ExampleModule` class
+    - `examples/jobs/example_job_{{ project_slug }}.yaml`
+    - `examples/pipelines/example_pipeline_{{ project_slug }}.yaml`
+
 
 ### In Progress
 
@@ -44,6 +51,14 @@ This file contains open (and completed) tasks for this project
     - `Owner`: `{{ github_user }}`
     - `Repository name`: `{{ full_project_slug }}`
     - `Description`: `{{ project_short_description }}`
+- [ ] add the Github repository as remote:
+  - `git remote add origin git@github.com:{{ github_user }}/{{ full_project_slug }}.git`
+    or:
+    `git remote add origin https://github.com/{{ github_user }}/{{ full_project_slug }}.git`
+- [ ] push the initial version:
+  - `git push --set-upstream origin develop`
+  - now visit the Github Actions tab in your new repo and check that the pre-configured actions all run without error:
+    - https://github.com/{{ github_user }}/{{ full_project_slug }}/actions
 
 ### Done
 
