@@ -35,14 +35,19 @@ This file contains open (and completed) tasks for this project
     - [ ] create new repository secret at: https://github.com/{{ github_user }}/{{ full_project_slug }}/settings/secrets/actions
         - `Name`: `ANACONDA_PUSH_TOKEN`
         - `Secret`: the token you created above
-{% endif %}- [ ] delete example module and job:
-  - once you have confirmed it works, delete the `ExampleModule` that comes with this template, along with everything related:
+{% endif %}-[ ] examine and run example module (and module config)
+  - `src/kiara_plugin/{{ project_slug }}/modules/__init__.py`
+      - run it via: `uv run kiara run test_plugin.example text_1="Hello" text_2="World"`
+  - `examples/jobs/example_job_{{ project_slug }}.yaml`
+      - run it via: `uv run kiara run test_plugin.example_job_{{ project_slug }}.yaml`
+- [ ] delete example module and job:
+  - once you have confirmed everything works, delete the `ExampleModule` that comes with this template, along with everything related:
     - `src/kiara_plugin/{{ project_slug }}/modules/__init__.py`:
         - the `ExampleModuleConfig` class
         - the `ExampleModule` class
     - `examples/jobs/example_job_{{ project_slug }}.yaml`
     - `examples/pipelines/example_pipeline_{{ project_slug }}.yaml`
-
+- [ ] start writing your own modules!
 
 ### In Progress
 
